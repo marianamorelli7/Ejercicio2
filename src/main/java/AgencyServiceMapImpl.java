@@ -12,35 +12,41 @@ import java.util.*;
 
 public class AgencyServiceMapImpl implements AgencyService {
 
-    private List<Agency> agencyMap;
+    private List<Agency> agencyMap=new ArrayList<Agency>();
 
     public AgencyServiceMapImpl() {
-        this.agencyMap = new ArrayList<Agency>();
+
     }
+
+
 
     @Override
     public Collection<Agency> getAgencies(String site_id, String payment_methods, Criterio criterioOrden) throws ApiException{
 
         String url = "https://api.mercadolibre.com/sites/"+site_id+"/payment_methods/"+payment_methods+"/agencies";
         try {
+
             String data = readUrl(url);
             JsonObject jsonObject = new Gson().fromJson(data, JsonElement.class).getAsJsonObject();
             Agency.criterioOrden = criterioOrden;
             Agency[] agencies = new Gson().fromJson(jsonObject.get("results"), Agency[].class);
+
             for(Agency agency : agencies){
                 agencyMap.add(agency);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        order(agencyMap);
-        return agencyMap;
+
+        return order(agencyMap);
     }
 
     private static <T extends Comparable<T>> Collection<T> order(List<T> agencies){
          Collections.sort(agencies);
         return agencies;
     }
+
     private String readUrl(String urlString) throws IOException {
 
         BufferedReader reader = null;

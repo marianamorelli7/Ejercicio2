@@ -3,19 +3,19 @@ public class Agency implements Comparable<Agency> {
     private String agency_code;
     private String correspondent_id;
     private String description;
-    private String disabled;
-    private String distance;
+    private boolean disabled;
+    private Double distance;
     private String id;
     private String payment_method_id;
     private String phone;
     private String site_id;
-    private String terminal;
+    private boolean terminal;
     private Address address;
     public static Criterio criterioOrden;
     public Agency() {
     }
 
-    public Agency(String agency_code, String correspondent_id, String description, String disabled, String distance, String id, String payment_method_id, String phone, String site_id, String terminal, Address address, Criterio criterioOrden) {
+    public Agency(String agency_code, String correspondent_id, String description, boolean disabled, Double distance, String id, String payment_method_id, String phone, String site_id, boolean terminal, Address address, Criterio criterioOrden) {
         this.agency_code = agency_code;
         this.correspondent_id = correspondent_id;
         this.description = description;
@@ -54,19 +54,19 @@ public class Agency implements Comparable<Agency> {
         this.description = description;
     }
 
-    public String getDisabled() {
+    public boolean getDisabled() {
         return disabled;
     }
 
-    public void setDisabled(String disabled) {
+    public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
 
-    public String getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(Double distance) {
         this.distance = distance;
     }
 
@@ -102,11 +102,11 @@ public class Agency implements Comparable<Agency> {
         this.site_id = site_id;
     }
 
-    public String getTerminal() {
+    public boolean getTerminal() {
         return terminal;
     }
 
-    public void setTerminal(String terminal) {
+    public void setTerminal(boolean terminal) {
         this.terminal = terminal;
     }
 
@@ -122,10 +122,10 @@ public class Agency implements Comparable<Agency> {
     public int compareTo(Agency o) {
         int respuesta = 0;
 
-        switch(this.criterioOrden)
+        switch (this.criterioOrden)
         {
-            case ADDRESS:
-                this.address.compareTo(o.address);
+            case ADDRESS_LINE:
+                respuesta = this.address.compareTo(o.address);
                 break;
             case DISTANCE:
                 respuesta = distance.compareTo(o.distance);

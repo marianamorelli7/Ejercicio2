@@ -1,8 +1,8 @@
 public enum Criterio {
 
-        ADDRESS ("Address"),
-        AGENCY_CODE ("Agency_code"),
-        DISTANCE ("Distance");
+        ADDRESS_LINE ("address_line"),
+        AGENCY_CODE ("agency_code"),
+        DISTANCE ("distance");
 
         private String criterio;
 
