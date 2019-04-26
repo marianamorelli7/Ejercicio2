@@ -13,6 +13,7 @@ import java.util.*;
 public class AgencyServiceMapImpl implements AgencyService {
 
     private List<Agency> agencyMap=new ArrayList<Agency>();
+    String baseURL =  "https://api.mercadolibre.com";
 
     public AgencyServiceMapImpl() {
 
@@ -21,9 +22,15 @@ public class AgencyServiceMapImpl implements AgencyService {
 
 
     @Override
-    public Collection<Agency> getAgencies(String site_id, String payment_methods, Criterio criterioOrden) throws ApiException{
+    public Collection<Agency> getAgencies(String site_id, String payment_methods, String[] near_to, Criterio criterioOrden) throws ApiException{
 
-        String url = "https://api.mercadolibre.com/sites/"+site_id+"/payment_methods/"+payment_methods+"/agencies";
+        String url = baseURL +
+                "/sites/" + site_id +
+                "/payment_methods/" + payment_methods +
+                "/agencies?near_to="
+                + near_to[0] +","
+                + near_to[1]+","
+                + near_to[2];
         try {
 
             String data = readUrl(url);

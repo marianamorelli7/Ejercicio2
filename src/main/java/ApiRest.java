@@ -11,10 +11,12 @@ public class ApiRest {
 
         final AgencyService agencyService = new AgencyServiceMapImpl();
 
-        get("/agency", (request, response) -> {
+        get("/agencias", (request, response) -> {
             response.type("application/json");
             String site_id = request.queryParams("site_id");
             String payment_methods = request.queryParams("payment_methods");
+            String near = (request.queryParams("near_to"));
+            String[] near_to = near.split(",");
             String criterioIn = request.queryParams("criterioOrden");
             MyLog.logInfo(request.url() + "?" + request.raw().getQueryString());
 
@@ -28,9 +30,9 @@ public class ApiRest {
                     criterioOrden = Criterio.DISTANCE;
                     break;
                 case "agency_code":
-                default: criterioOrden = Criterio.AGENCY_CODE;
+                    criterioOrden = Criterio.AGENCY_CODE;
             }
-                return new Gson().toJson(new StandardResponse(StatusResponse.SUCCESS, new Gson().toJsonTree(agencyService.getAgencies(site_id,payment_methods,criterioOrden)
+                return new Gson().toJson(new StandardResponse(StatusResponse.SUCCESS, new Gson().toJsonTree(agencyService.getAgencies(site_id, payment_methods, near_to, criterioOrden)
                 )));
         });
 
